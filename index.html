@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="mySpeech.js"></script>
+    <title>Speech Interface</title>
+  </head>
+  <body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <div class="rect">
+        <p id="coordX"></p>
+        <p id="coordY"></p>
+    </div>
+    <div id="answer">Речевой интерфейс запущен. Ожидаю команд.</div>
+    <button id="activate">Запустить речевой интерфейс</button>
+    <script>
+      
+      /////////////////////////////////////////////////////////////////////// 
+        mySpeech('#answer') 
+            .language('ru-RU') 
+            .onClickSpeak("#activate"); 
+
+/////////////////////////////////////////////////////////////////////// 
+if (annyang) { 
+    let name = "друг"; 
+    const answer = document.getElementById("answer"); 
+    const rect = document.querySelector(".rect"); 
+    rect.style.marginTop = "30px"; 
+    rect.style.marginLeft = "30px"; 
+    
+    setInterval(() => { 
+        document.querySelector("#coordX").innerText = "X: " + rect.style.marginLeft; 
+        document.querySelector("#coordY").innerText = "Y: " + rect.style.marginTop; 
+    }, 1) 
+    /////////////////////////////////////////////////////////////////////// 
+    const speak = text => { 
+        answer.innerText = text; 
+        
+        mySpeech('#answer') 
+        .language('ru-RU') 
+        .onSpeak(); 
+        } 
+    let lastCommand = "Двигайся вверх на 10 пикселей";
+    let commands = { 
+        ////////////////////////////////// 
+        "привет меня зовут *name": n => { 
+            document.getElementById("activate").style.display = "none"; 
+            name = n; 
+            speak(`Привет, ${name}!`); 
+        }, 
+        ////////////////////////////////// 
+        "пока": () => { 
+            speak(`Пока, ${name}! Отключаю речевой интерфейс`); 
+            location.reload(); 
+        }, 
+        ////////////////////////////////// 
+        "двигайся :where на :num пикселей": (where, num) => { 
+            console.log(where, num);
+            lastCommand = `двигайся ${where} на ${num} пикселей`;
+            switch(where) { 
+                case "вверх": 
+                case "верх": 
+                    rect.style.marginTop = +(rect.style.marginTop.split("px")[0]) - +(num) + "px"; 
+                break; 
+                case "вниз": 
+                case "вынес": 
+                case "низ": 
+                    rect.style.marginTop = +(rect.style.marginTop.split("px")[0]) + +(num) + "px"; 
+                    break; 
+                case "влево": 
+                case "лево": 
+                case "слева": 
+                    rect.style.marginLeft = +(rect.style.marginTop.split("px")[0]) - +(num) + "px"; 
+                    break; 
+                case "вправо": 
+                case "право": 
+                case "справа": 
+                    rect.style.marginLeft = +(rect.style.marginLeft.split("px")[0]) + +(num) + "px"; 
+                    break; 
+                default: 
+                    speak("Не удалось распознать направление."); 
+            } 
+        },
+        "повтори": () => {
+            annyang.trigger(lastCommand);
+        },
+        "изменить цвет на :color": color => {
+            fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181227T084600Z.a7de6dbdd351b9b6.7df0da8e475d696c1f8a602a8d80f74ca4fb1030&text=${color}&lang=ru-en`)
+            .then(res => res.json())
+            .then(res => {
+                const col = res.text[0];
+                console.log(col);
+                rect.style.backgroundColor = col;
+            })
+        }
+    }; 
+    /////////////////////////////////////////////////////////////////////// 
+    annyang.setLanguage("ru"); 
+    annyang.addCommands(commands); 
+    annyang.start(); 
+} else { 
+    alert("Speech interface is unavailable."); 
+} 
+    </script>
+  </body>
+</html>
