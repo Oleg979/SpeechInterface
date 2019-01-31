@@ -109,7 +109,9 @@
 
             const addToHistory = text => {
                 history.innerHTML += `<p class="item">${text}</p>`;
-                history.getElementsByClassName("item").forEach(item => annyang.trigger(item.innerText));
+                Array
+                .from(history.getElementsByClassName("item"))
+                .forEach(item => annyang.trigger(item.innerText));
             }
 
             annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
