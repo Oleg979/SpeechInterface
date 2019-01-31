@@ -47,8 +47,9 @@
             }
 
             const rotate = num => {
-                rect.style.transform = `rotate(${num}deg)`;
-                console.log(num);
+                const old = +rect.style.transform.split("deg")[0].split("(")[1];
+                rect.style.transform = `rotate(${old + num}deg)`;
+                console.log(old, num);
             }
             
             setInterval(() => { 
