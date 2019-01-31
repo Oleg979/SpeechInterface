@@ -115,6 +115,7 @@
                 Array
                 .from(history.getElementsByClassName("item"))
                 .forEach(item => item.onclick = e => annyang.trigger(item.innerText));
+                history.scrollTop = history.scrollHeight;
             }
 
             annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
@@ -122,7 +123,7 @@
             });
 
             annyang.addCallback('resultNoMatch', function(phrases) {
-                speak("Команда не распознана.");
+                speak("Неизвестная команда");
                 addToHistory(`Вы сказали "${phrases[0]}"?`);
             });    
         } else { 
