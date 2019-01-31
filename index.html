@@ -10,6 +10,8 @@
   </head>
   <body>
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <div id="history">
+    </div>
     <div class="rect">
         <p id="coordX"></p>
         <p id="coordY"></p>
@@ -102,6 +104,10 @@
             annyang.setLanguage("ru"); 
             annyang.addCommands(commands); 
             annyang.start(); 
+
+            annyang.addCallback('result', function() {
+                console.log('sound stopped');
+            });
         } else { 
             alert("Speech interface is unavailable."); 
             location.reload();
