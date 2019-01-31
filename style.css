@@ -30,6 +30,8 @@ body {
 }
 
 #history {
+    scroll-behavior: smooth;
+    transition: all .5s ease;
     border-left: 2px solid black;
     height: 100%;
     width: 300px;

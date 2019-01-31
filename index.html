@@ -45,6 +45,10 @@
                         rect.style.backgroundColor = col;
                     })
             }
+
+            const rotate = num => {
+                
+            }
             
             setInterval(() => { 
                 document.querySelector("#coordX").innerText = "X: " + rect.style.marginLeft; 
@@ -104,6 +108,9 @@
                 },
                 "измени цвет на :color": changeColor,
                 "изменить цвет на :color": changeColor,
+                "повернись на :num градусов": rotate,
+                "повернись на :num градуса": rotate,
+                "повернись на :num градус": rotate,
             }; 
             /////////////////////////////////////////////////////////////////////// 
             annyang.setLanguage("ru"); 
