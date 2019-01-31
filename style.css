@@ -1,3 +1,7 @@
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 .rect {
   background-color: red;
   border: 2px solid black;
@@ -34,4 +38,5 @@
     overflow: scroll;
     font-weight: bold;
     text-transform: lowercase;
+    background-color: lightgray;
 }
