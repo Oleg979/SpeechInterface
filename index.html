@@ -109,6 +109,11 @@
                 document.getElementById("history").innerHTML += `<p class="item">${userSaid}</p>`
             });
 
+            annyang.addCallback('resultNoMatch', function(phrases) {
+                speak("Не удалось распознать команду.");
+                console.log("I think the user said: ", phrases[0]);
+                console.log("But then again, it could be any of the following: ", phrases);
+            });    
         } else { 
             alert("Speech interface is unavailable."); 
             location.reload();

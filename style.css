@@ -33,5 +33,5 @@
     right: 10px;
     overflow: scroll;
     font-weight: bold;
-    text-transform: capitalize;
+    text-transform: lowercase;
 }
