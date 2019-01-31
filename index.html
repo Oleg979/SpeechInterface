@@ -105,10 +105,8 @@
             annyang.addCommands(commands); 
             annyang.start(); 
 
-            annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-                console.log(userSaid); // sample output: 'hello'
-                console.log(commandText); // sample output: 'hello (there)'
-                console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+            annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
+                document.getElementById("history").innerHTML += `<p class="item">${userSaid}</p>`
             });
 
         } else { 
