@@ -35,6 +35,16 @@
             const history = document.getElementById("history");
             rect.style.marginTop = "30px"; 
             rect.style.marginLeft = "30px"; 
+
+            const changeColor = color => {
+                    fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181227T084600Z.a7de6dbdd351b9b6.7df0da8e475d696c1f8a602a8d80f74ca4fb1030&text=${color}&lang=ru-en`)
+                    .then(res => res.json())
+                    .then(res => {
+                        const col = res.text[0];
+                        console.log(col);
+                        rect.style.backgroundColor = col;
+                    })
+            }
             
             setInterval(() => { 
                 document.querySelector("#coordX").innerText = "X: " + rect.style.marginLeft; 
@@ -92,15 +102,8 @@
                 "повтори": () => {
                     annyang.trigger(lastCommand);
                 },
-                "измени цвет на :color": color => {
-                    fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181227T084600Z.a7de6dbdd351b9b6.7df0da8e475d696c1f8a602a8d80f74ca4fb1030&text=${color}&lang=ru-en`)
-                    .then(res => res.json())
-                    .then(res => {
-                        const col = res.text[0];
-                        console.log(col);
-                        rect.style.backgroundColor = col;
-                    })
-                }
+                "измени цвет на :color": changeColor(color),
+                "изменить цвет на :color": changeColor(color),
             }; 
             /////////////////////////////////////////////////////////////////////// 
             annyang.setLanguage("ru"); 
@@ -119,7 +122,7 @@
             });
 
             annyang.addCallback('resultNoMatch', function(phrases) {
-                speak("Не удалось распознать команду.");
+                speak("Команда не распознана.");
                 addToHistory(`Вы сказали "${phrases[0]}"?`);
             });    
         } else { 
