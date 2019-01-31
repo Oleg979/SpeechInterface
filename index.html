@@ -91,7 +91,7 @@
                 "повтори": () => {
                     annyang.trigger(lastCommand);
                 },
-                "изменить цвет на :color": color => {
+                "измени цвет на :color": color => {
                     fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181227T084600Z.a7de6dbdd351b9b6.7df0da8e475d696c1f8a602a8d80f74ca4fb1030&text=${color}&lang=ru-en`)
                     .then(res => res.json())
                     .then(res => {
@@ -104,16 +104,21 @@
             /////////////////////////////////////////////////////////////////////// 
             annyang.setLanguage("ru"); 
             annyang.addCommands(commands); 
-            annyang.start(); 
+            annyang.start();
+
+            const addToHistory = text => {
+                document.getElementById("history").innerHTML += `<p class="item">${text}</p>`
+                document.getElementById("history").lastElementChild.onclick = e => 
+                    annyang.trigger(document.getElementById("history").lastElementChild.innerText)
+            }
 
             annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
-                document.getElementById("history").innerHTML += `<p class="item">${userSaid}</p>`
+               addToHistory(userSaid);
             });
 
             annyang.addCallback('resultNoMatch', function(phrases) {
                 speak("Не удалось распознать команду.");
-                console.log("I think the user said: ", phrases[0]);
-                console.log("But then again, it could be any of the following: ", phrases);
+                addToHistory(`Вы сказали "${phrases[0]}"?`);
             });    
         } else { 
             alert("Speech interface is unavailable."); 
