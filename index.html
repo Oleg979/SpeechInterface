@@ -35,6 +35,7 @@
             const history = document.getElementById("history");
             rect.style.marginTop = "30px"; 
             rect.style.marginLeft = "30px"; 
+            rect.style.transform = "rotate(0deg)";
 
             const changeColor = color => {
                     fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20181227T084600Z.a7de6dbdd351b9b6.7df0da8e475d696c1f8a602a8d80f74ca4fb1030&text=${color}&lang=ru-en`)
