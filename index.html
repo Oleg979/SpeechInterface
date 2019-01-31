@@ -47,7 +47,8 @@
             }
 
             const rotate = num => {
-                
+                rect.style.transform = `rotate(${num}deg)`;
+                console.log(num);
             }
             
             setInterval(() => { 
@@ -78,7 +79,6 @@
                 ////////////////////////////////// 
                 "двигайся :where на :num пикселей": (where, num) => { 
                     console.log(where, num);
-                    lastCommand = `двигайся ${where} на ${num} пикселей`;
                     switch(where) { 
                         case "вверх": 
                         case "верх": 
@@ -127,6 +127,7 @@
 
             annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
                addToHistory(userSaid);
+               lastCommand = userSaid;
             });
 
             annyang.addCallback('resultNoMatch', function(phrases) {
