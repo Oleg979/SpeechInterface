@@ -32,6 +32,7 @@
             let name = "друг"; 
             const answer = document.getElementById("answer"); 
             const rect = document.querySelector(".rect"); 
+            const history = document.getElementById("history");
             rect.style.marginTop = "30px"; 
             rect.style.marginLeft = "30px"; 
             
@@ -107,9 +108,9 @@
             annyang.start();
 
             const addToHistory = text => {
-                document.getElementById("history").innerHTML += `<p class="item">${text}</p>`
-                document.getElementById("history").lastElementChild.onclick = e => 
-                    annyang.trigger(document.getElementById("history").lastElementChild.innerText)
+                history.innerHTML += `<p class="item">${text}</p>`
+                const last = history.lastChild;
+                last.onclick = e => annyang.trigger(last.innerText);
             }
 
             annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
