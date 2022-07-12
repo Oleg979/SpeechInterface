@@ -4,6 +4,12 @@ body {
     padding: 0;
 }
 
+.close {
+    color: red;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
 .rect {
   background-color: red;
   border: 2px solid black;
@@ -44,6 +50,17 @@ body {
     font-weight: bold;
     text-transform: lowercase;
     background-color: lightgray;
+}
+
+#open {
+    color: red;
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 
 .item {
